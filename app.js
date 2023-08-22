@@ -1,11 +1,16 @@
 const express = require("express");
 const app = express();
+const todoRoutes = require("./routes/todo.routes");
+const mongodb = require("./mongodb/mongodb.connect");
+
+mongodb.connect();
+
+app.use(express.json());
+
+app.use("/todos", todoRoutes);
 
 app.get("/", (req, res) => {
   res.send("Hello World");
 });
 
-const PORT = 9000;
-app.listen(PORT, () => {
-  console.log("Server is listening", PORT);
-});
+module.exports = app;
